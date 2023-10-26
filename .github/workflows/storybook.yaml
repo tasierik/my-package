@@ -1,0 +1,32 @@
+name: Publish package
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+      - run: |
+          git config --global user.name "Erik Tasi"
+          git config --global user.email "tasi.erik15@gmail.com"
+      - run: |
+          git fetch
+          git checkout storybook
+          git merge main --allow-unrelated-histories --no-ff -X theirs
+      - run: |
+          npm i
+          npm run build-storybook
+          rm -rf docs
+          mv storybook-static docs
+      - run: |
+          git add .
+          git commit -m "Update storybook"
+          git push
