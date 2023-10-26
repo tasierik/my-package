@@ -14,6 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
+        with:
+          registry-url: https://npm.pkg.github.com/
       - run: |
           git config --global user.name "Erik Tasi"
           git config --global user.email "tasi.erik15@gmail.com"
