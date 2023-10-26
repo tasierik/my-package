@@ -27,3 +27,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: git push
+      - run: |
+          gh workflow run 'Update dependencies' --repo 'tasierik/my-app
+        env:
+          GITHUB_TOKEN: ${{secrets.MY_PAT}}
